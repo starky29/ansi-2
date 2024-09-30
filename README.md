@@ -8,7 +8,6 @@ ansible hw-2
 ### 5. Запустите ansible-lint site.yml и исправьте ошибки, если они есть.
 ![alt text](image.png)
 ### 6. Попробуйте запустить playbook на этом окружении с флагом --check.
-![alt text](image-1.png)
 ### 7. Запустите playbook на prod.yml окружении с флагом --diff. Убедитесь, что изменения на системе произведены.
 ![alt text](image-2.png)
 ### 8. Повторно запустите playbook с флагом --diff и убедитесь, что playbook идемпотентен.
