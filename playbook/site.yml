@@ -1,4 +1,69 @@
 ---
+- name: Install Nginx
+  hosts: lighthouse
+  handlers:
+    - name: Restart nginx service
+      become: true
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+        daemon_reload: true
+    - name: Start nginx service
+      ansible.builtin.service:
+        name: nginx
+        state: started
+  tasks:
+    - name: Install nginx | epel
+      become: true
+      ansible.builtin.yum_repository:
+        name: epel
+        baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+        description: EPEL YUM repo
+        state: present
+    - name: Install nginx | Nginx
+      become: true
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+        disable_gpg_check: true
+      notify: start nginx service
+    - name: Config Nginx
+      become: true
+      ansible.builtin.template:
+        src: nginx.conf.j2
+        mode: "0644"
+        dest: "/etc/nginx/nginx.conf"
+      notify: Start nginx service
+- name: Install Lighthouse
+  hosts: lighthouse
+  handlers:
+    - name: Start nginx service
+      become: true
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+        daemon_reload: true
+  pre_tasks:
+    - name: Install git
+      become: true
+      ansible.builtin.yum:
+        name: git
+        state: present
+  tasks:
+    - name: Lighthouse | cp from git
+      become: true
+      ansible.builtin.git:
+        repo: "{{ lighthouse_repo }}"
+        version: master
+        dest: "{{ lighthouse_dir }}"
+      notify: Start nginx service
+    # - name: Lighthouse | Config
+    #   become: true
+    #   ansible.builtin.template:
+    #     src: lighthouse.conf.j2
+    #     mode: "0644"
+    #     dest: "{{ lighthouse_nginx_conf }}"
+    #   notify: Start nginx service
 - name: Install Clickhouse
   hosts: clickhouse
   handlers:
