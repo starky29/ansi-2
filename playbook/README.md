@@ -21,8 +21,11 @@ clickhouse_version: 22.3.3.44
 ```YML
 vector_version: 0.41.1
 ```
-
-В файле **[vector/vars.yml](https://github.com/Loginochka/ansible-hw/blob/main/h-2/playbook/group_vars/vector/vars.yml)** укажите IP на котором будет запущен clickhouse, если сервис будет запущен на одной инстансе, то оставьте настройку как есть
+В файле **[lighthouse/vars.yml]** укажите IP\порт, который будет слушать веб-сервер
+```YML
+nginx_address: 0.0.0.0:8080
+```
+В файле **[vector/vars.yml]** укажите IP на котором будет запущен clickhouse, если сервис будет запущен на одной инстансе, то оставьте настройку как есть
 ```YML
 endpoint: http://localhost:8123
 ```
