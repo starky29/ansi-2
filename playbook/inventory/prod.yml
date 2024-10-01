@@ -2,18 +2,18 @@
 clickhouse:
   hosts:
     clickhouse-01:
-      ansible_host: 89.169.157.32
-      ansible_user: starkov_aa
-      ansible_ssh_private_key_file: /home/starkov_aa/.ssh/id_ed25519
+      ansible_host: ip
+      ansible_user: user
+      ansible_ssh_private_key_file: private_key_file
 vector:
   hosts:
     vector-01:
-      ansible_host: 89.169.155.78
-      ansible_user: starkov_aa
-      ansible_ssh_private_key_file: /home/starkov_aa/.ssh/id_ed25519
+      ansible_host: ip
+      ansible_user: user
+      ansible_ssh_private_key_file: private_key_file
 lighthouse:
   hosts:
     lighthouse-01:
-      ansible_host: 89.169.141.76
-      ansible_user: starkov_aa
-      ansible_ssh_private_key_file: /home/starkov_aa/.ssh/id_ed25519
+      ansible_host: ip
+      ansible_user: user
+      ansible_ssh_private_key_file: private_key_file

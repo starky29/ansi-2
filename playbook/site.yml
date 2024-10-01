@@ -11,6 +11,7 @@
     - name: Start nginx service
       ansible.builtin.service:
         name: nginx
+        pattern: /usr/lib/systemd/system/nginx.service
         state: started
   tasks:
     - name: Install nginx | epel
