@@ -1,5 +1,0 @@
----
-lighthouse_repo: "https://github.com/VKCOM/lighthouse"
-lighthouse_dir: "/usr/share/nginx/html/lighthouse"
-lighthouse_nginx_conf: "/etc/nginx/conf.d/default.conf"
-nginx_index_html_dir: /usr/share/nginx/html
