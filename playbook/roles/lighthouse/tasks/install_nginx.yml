@@ -1,0 +1,22 @@
+---
+- name: Install nginx | epel
+  become: true
+  ansible.builtin.yum_repository:
+    name: epel
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+    description: EPEL YUM repo
+    state: present
+- name: Install nginx | Nginx
+  become: true
+  ansible.builtin.yum:
+    name: nginx
+    state: present
+    disable_gpg_check: true
+  notify: Start nginx service
+- name: Config Nginx
+  become: true
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    mode: "0644"
+    dest: "/etc/nginx/nginx.conf"
+  notify: Start nginx service

@@ -1,0 +1,22 @@
+---
+vector_version: "0.41.1"
+vector_config_file: "vector.toml.j2"
+vector_service_file: "vector.service.j2"
+vector_config:
+  sources:
+    fake_log:
+      type: demo_logs
+      format: syslog
+      interval: 3
+      decoding:
+        codec: syslog
+  sinks:
+    sink_id:
+      type: clickhouse
+      inputs:
+        - fake_log
+      endpoint: "http://{{ hostvars['clickhouse-01']['ansible_host'] }}:8123"
+      database: log
+      table: syslog
+      compression: gzip
+      skip_unknown_fields: true

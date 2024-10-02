@@ -1,0 +1,24 @@
+---
+- name: Get vector distrib
+  ansible.builtin.get_url:
+    url: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-1.x86_64.rpm"
+    dest: "/tmp/vector-{{ vector_version }}-1.x86_64.rpm"
+    mode: "0644"
+- name: Install vector distrib
+  become: true
+  ansible.builtin.yum:
+    name: "/tmp/vector-{{ vector_version }}-1.x86_64.rpm"
+    disable_gpg_check: true
+- name: Template Config
+  become: true
+  ansible.builtin.template:
+    src: vector.yml.j2
+    mode: "0644"
+    dest: "{{ config_dir }}/vector.yml"
+- name: Configure Vector | service
+  become: true
+  ansible.builtin.template:
+    src: vector.service.j2
+    dest: /etc/systemd/system/vector.service
+    mode: '0644'
+  notify: Start vector service
